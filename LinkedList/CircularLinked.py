@@ -105,7 +105,45 @@ class CircularLinkedList:
         print("\n")
         split_cllist.print_list()
 
+    # Remove entire node
+    def remove_node(self, key):
+        if self.head:
+            if self.head == key:
+                cur = self.head 
+                while cur.next != self.head:
+                    cur = cur.next 
+                if self.head == self.head.next:
+                    self.head = None
+                else:
+                    cur.next = self.head.next
+                    self.head = self.head.next
+            else:
+                cur = self.head 
+                prev = None 
+                while cur.next != self.head:
+                    prev = cur 
+                    cur = cur.next
+                    if cur == key:
+                        prev.next = cur.next 
+                        cur = cur.next
+
     # Josephus Problem
+    def josephus_circle(self, step):
+        cur = self.head 
+
+        length = len(self)
+        while length > 1:
+            count = 1 
+            while count != step:
+                cur = cur.next 
+                count += 1
+            print("KILL:" + str(cur.data))
+            self.remove_node(cur)
+            cur = cur.next
+            length -= 1
+
+
+
     
 if __name__ == '__main__':
     cllist = CircularLinkedList()
@@ -133,4 +171,15 @@ if __name__ == '__main__':
     cllist.append("F")
 
     cllist.split_list()
+    print('\nJosephus Problems')
+
+    jllist = CircularLinkedList()
+    jllist.append(15)
+    jllist.append(2)
+    jllist.append(3)
+    jllist.append(4)
+
+
+    jllist.josephus_circle(2)
+    jllist.print_list()
                     
