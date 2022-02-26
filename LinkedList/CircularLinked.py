@@ -3,6 +3,28 @@ class Node:
         self.data = data 
         self.next = None
 
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def print_list(self):
+        cur_node = self.head
+        while cur_node:
+            print(cur_node.data)
+            cur_node = cur_node.next
+
+    def append(self, data):
+        new_node = Node(data)
+
+        if self.head is None:
+            self.head = new_node
+            return
+
+        last_node = self.head
+        while last_node.next:
+            last_node = last_node.next
+        last_node.next = new_node
+
 
 class CircularLinkedList:
     def __init__(self):
@@ -142,7 +164,17 @@ class CircularLinkedList:
             cur = cur.next
             length -= 1
 
-
+    # Is Circular Linked List
+    def is_circular_linked_list(self, input_list):
+        if input_list.head:
+            cur = input_list.head
+            while cur.next:
+                cur = cur.next
+                if cur.next == input_list.head:
+                    return True
+            return False
+        else:
+            return False
 
     
 if __name__ == '__main__':
@@ -182,4 +214,20 @@ if __name__ == '__main__':
 
     jllist.josephus_circle(2)
     jllist.print_list()
-                    
+    print()
+
+    cllist = CircularLinkedList()
+    cllist.append(1)
+    cllist.append(2)
+    cllist.append(3)
+    cllist.append(4)
+
+    llist = LinkedList()
+    llist.append(1)
+    llist.append(2)
+    llist.append(3)
+    llist.append(4)
+
+    print(cllist.is_circular_linked_list(cllist))
+    print(cllist.is_circular_linked_list(llist))
+                        
