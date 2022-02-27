@@ -40,38 +40,93 @@ class DoublyLinkedList:
             print(cur.data)
             cur = cur.next
 
-    
-  def add_after_node(self, key, data):
-    cur = self.head
-    while cur:
-      if cur.next is None and cur.data == key:
-        self.append(data)
-        return
-      elif cur.data == key:
-        new_node = Node(data)
-        nxt = cur.next 
-        cur.next = new_node
-        new_node.next = nxt
-        new_node.prev = cur 
-        nxt.prev = new_node
-        return
-      cur = cur.next
+    # Add Node After
+    def add_after_node(self, key, data):
+        cur = self.head
+        while cur:
+            if cur.next is None and cur.data == key:
+                self.append(data)
+                return
+            elif cur.data == key:
+                new_node = Node(data)
+                nxt = cur.next 
+                cur.next = new_node
+                new_node.next = nxt
+                new_node.prev = cur 
+                nxt.prev = new_node
+                return
+            cur = cur.next
 
-  def add_before_node(self, key, data):
-    cur = self.head 
-    while cur:
-      if cur.prev is None and cur.data == key:
-        self.prepend(data)
-        return
-      elif cur.data == key:
-        new_node = Node(data)
-        prev = cur.prev
-        prev.next = new_node
-        cur.prev = new_node
-        new_node.next = cur
-        new_node.prev = prev
-        return
-      cur = cur.next
+    #    Add Node Before# 
+    def add_before_node(self, key, data):
+        cur = self.head 
+        while cur:
+            if cur.prev is None and cur.data == key:
+                self.prepend(data)
+                return
+            elif cur.data == key:
+                new_node = Node(data)
+                prev = cur.prev
+                prev.next = new_node
+                cur.prev = new_node
+                new_node.next = cur
+                new_node.prev = prev
+                return
+            cur = cur.next
+
+    # 
+    def delete(self, key):
+        cur = self.head
+        while cur:
+            if cur.data == key and cur == self.head:
+                # Case 1: Deleting the only node present
+                if not cur.next:
+                    cur = None 
+                    self.head = None
+                    return
+
+                # Case 2 Deleting Head node:
+                else:
+                    nxt = cur.next
+                    cur.next = None 
+                    nxt.prev = None
+                    cur = None
+                    self.head = nxt
+                    return 
+
+            elif cur.data == key:
+                # Case 3:  Deleting node other than head where cur.next is not None
+                if cur.next:
+                    nxt = cur.next 
+                    prev = cur.prev
+                    prev.next = nxt
+                    nxt.prev = prev
+                    cur.next = None 
+                    cur.prev = None
+                    cur = None
+                    return
+
+                # Case 4: Deleting node other than head where cur.next is None
+                else:
+                    prev = cur.prev 
+                    prev.next = None 
+                    cur.prev = None 
+                    cur = None 
+                    return 
+            cur = cur.next
+            
+    # Reverse
+    def reverse(self):
+        tmp = None
+        cur = self.head
+        while cur:
+            tmp = cur.prev
+            cur.prev = cur.next
+            cur.next = tmp
+            cur = cur.prev
+        if tmp:
+            self.head = tmp.prev
+
 
 
 if __name__ == '__main__':
@@ -85,4 +140,26 @@ if __name__ == '__main__':
     dllist.add_after_node(3,6)
     dllist.add_before_node(4,9)
 
+    dllist.print_list()
+    print('\nAfter Deleting Node')
+    dllist = DoublyLinkedList()
+    dllist.append(1)
+    dllist.append(2)
+    dllist.append(3)
+    dllist.append(4)
+
+    dllist.delete(1)
+    dllist.delete(6)
+    dllist.delete(4)
+
+    dllist.delete(3)
+    dllist.print_list()
+
+    print('Reverse')
+    dllist = DoublyLinkedList()
+    dllist.append(1)
+    dllist.append(2)
+    dllist.append(3)
+    dllist.append(4)
+    dllist.reverse()
     dllist.print_list()
