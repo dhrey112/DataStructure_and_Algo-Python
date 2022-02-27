@@ -140,7 +140,21 @@ class DoublyLinkedList:
                 self.delete_node(cur)
                 cur = nxt
 
+    # Pairs with sum
+    def pairs_with_sum(self, sum_val):
+        pairs = list()
+        p = self.head
+        q = None
 
+        while p:
+            q = p.next
+            while q:
+                if (p.data + q.data) == sum_val:
+                    pairs_sum = f'({p.data},{q.data})'
+                    pairs.append(pairs_sum)
+                q = q.next
+            p = p.next
+        return pairs
 
 if __name__ == '__main__':
     dllist = DoublyLinkedList()
@@ -176,3 +190,13 @@ if __name__ == '__main__':
     dllist.append(4)
     dllist.reverse()
     dllist.print_list()
+
+    print('Pair and sum')
+    dllist = DoublyLinkedList()
+    dllist.append(1)
+    dllist.append(2)
+    dllist.append(3)
+    dllist.append(4)
+    dllist.append(5)
+
+    print(dllist.pairs_with_sum(5))
