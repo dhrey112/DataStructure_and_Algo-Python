@@ -22,6 +22,35 @@ class Queue(object):
     def size(self):
         return len(self.items)
 
+# Stack
+class stack(object):
+    def __init__(self):
+        self.items = []
+
+    def __len__(self):
+        return self.size()
+
+    def size(self):
+        return len(self.items)
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def __str__(self):
+        s = ""
+        for i in range(len(self.items)):
+            s += str(self.items[i].value) + "-"
 
 #  Node
 class Node(object):
@@ -43,6 +72,8 @@ class BinaryTree(object):
             return self.inorder_print(tree.root, "")
         elif traversal_type == "postorder":
             return self.postorder_print(tree.root, "")
+        elif traversal_type == "levelorder":
+            return self.levelorder_print(tree.root)
 
         else:
             print("Traversal type " + str(traversal_type) + " is not supported.")
@@ -118,3 +149,4 @@ tree.root.right.right = Node(7)
 print(tree.print_tree("preorder"))
 print(tree.print_tree("inorder"))
 print(tree.print_tree("postorder"))
+print(tree.print_tree("levelorder"))
