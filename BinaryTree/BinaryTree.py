@@ -22,8 +22,9 @@ class Queue(object):
     def size(self):
         return len(self.items)
 
+
 # Stack
-class stack(object):
+class Stack(object):
     def __init__(self):
         self.items = []
 
@@ -52,6 +53,7 @@ class stack(object):
         for i in range(len(self.items)):
             s += str(self.items[i].value) + "-"
 
+
 #  Node
 class Node(object):
     def __init__(self, value):
@@ -74,6 +76,8 @@ class BinaryTree(object):
             return self.postorder_print(tree.root, "")
         elif traversal_type == "levelorder":
             return self.levelorder_print(tree.root)
+        elif traversal_type == "reverse_levelorder":
+            return self.reverse_levelorder_print(tree.root)
 
         else:
             print("Traversal type " + str(traversal_type) + " is not supported.")
@@ -106,7 +110,7 @@ class BinaryTree(object):
             traversal = self.postorder_print(start.right, traversal)
             traversal += (str(start.value) + "-")
         return traversal
-    
+
     # implement level-order traversal
     def levelorder_print(self, start):
         if start is None:
@@ -126,6 +130,47 @@ class BinaryTree(object):
                 queue.enqueue(node.right)
 
         return traversal
+
+    # Reverse Level-Order Traversal
+    def reverse_levelorder_print(self, start):
+        if start is None:
+            return
+
+        queue = Queue()
+        stack = Stack()
+        queue.enqueue(start)
+
+        traversal = ''
+        while len(queue) > 0:
+            node = queue.dequeue()
+            stack.push(node)
+
+            if node.right:
+                queue.enqueue(node.right)
+            if node.left:
+                queue.enqueue(node.left)
+
+        while len(stack) > 0:
+            node = stack.pop()
+            traversal += str(node.value) + '-'
+
+        return traversal
+
+    # Height of a tree
+    def height(self, node):
+        if node is None:
+            return -1
+        left_height = self.height(node.left)
+        right_height = self.height(node.right)
+
+        return 1 + max(left_height, right_height)
+
+    # Size of a Tree
+    def tree_size(self, node):
+        if node is None:
+            return 0
+        return 1 + self.tree_size(node.right) + self.tree_size(node.left)
+
 
 
 # 1-2-4-5-3-6-7-
@@ -150,3 +195,6 @@ print(tree.print_tree("preorder"))
 print(tree.print_tree("inorder"))
 print(tree.print_tree("postorder"))
 print(tree.print_tree("levelorder"))
+print(tree.print_tree("reverse_levelorder"))
+print(tree.height(tree.root))
+print(tree.tree_size(tree.root))
