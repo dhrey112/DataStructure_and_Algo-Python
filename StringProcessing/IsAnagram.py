@@ -15,6 +15,9 @@ print(sorted(s1) == sorted(s2))
 # O(nlogn).
 def is_anagram(s1, s2):
     ht = dict()
+    ## normalizing the strings
+    s1 = s1.replace(" ", "").lower()
+    s2 = s2.replace(" ", "").lower()
     if len(s1) != len(s2):
         return False
 
@@ -36,8 +39,5 @@ def is_anagram(s1, s2):
 
 s1 = "fairy tales"
 s2 = "rail safety"
-## normalizing the strings
-s1 = s1.replace(" ", "").lower()
-s2 = s2.replace(" ", "").lower()
 
 print(is_anagram(s1, s2))
