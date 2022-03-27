@@ -17,6 +17,6 @@ def find(A, target):
             high = mid - 1
 
 A = [-14, -10, 2, 108, 108, 243, 285, 285, 285, 401]
-target = 108
+target = 285
 x = find(A, target)
 print(x)
