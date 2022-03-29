@@ -6,7 +6,7 @@ s2 = s2.replace(" ", "").lower()
 
 # Requires n log n time (since any comparison
 # based sorting algorithm requires at least
-# n log n time to sort).
+# nlogn time to sort).
 print(sorted(s1) == sorted(s2))
 
 
@@ -15,7 +15,7 @@ print(sorted(s1) == sorted(s2))
 # O(nlogn).
 def is_anagram(s1, s2):
     ht = dict()
-    ## normalizing the strings
+    # normalizing the strings
     s1 = s1.replace(" ", "").lower()
     s2 = s2.replace(" ", "").lower()
     if len(s1) != len(s2):

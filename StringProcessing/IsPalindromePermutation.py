@@ -18,6 +18,7 @@ def is_palin_perm(input_str):
             return False
     return True
 
+
 palin_perm = "Tact Coa"
 not_palin_perm = "This is not a palindrome permutation"
 
