@@ -86,7 +86,7 @@ class LinkedList:
 
             prev_node.next = cur_node.next
             cur_node = None
-    
+
     # Calculate the length of a linked list. Iterative implementation
     def len_iterative(self):
         count = 0
@@ -100,7 +100,7 @@ class LinkedList:
         if node is None:
             return 0
         return 1 + self.len_iterative(node.next)
-    
+
     def print_helper(self, node, name):
         if node is None:
             print(name + ": None")
@@ -111,22 +111,22 @@ class LinkedList:
     def swap_nodes(self, key_1, key_2):
 
         if key_1 == key_2:
-            return 
+            return
 
-        prev_1 = None 
-        curr_1 = self.head 
+        prev_1 = None
+        curr_1 = self.head
         while curr_1 and curr_1.data != key_1:
-            prev_1 = curr_1 
+            prev_1 = curr_1
             curr_1 = curr_1.next
 
-        prev_2 = None 
-        curr_2 = self.head 
+        prev_2 = None
+        curr_2 = self.head
         while curr_2 and curr_2.data != key_2:
-            prev_2 = curr_2 
+            prev_2 = curr_2
             curr_2 = curr_2.next
 
         if not curr_1 or not curr_2:
-            return 
+            return
 
         if prev_1:
             prev_1.next = curr_2
@@ -137,12 +137,13 @@ class LinkedList:
             prev_2.next = curr_1
         else:
             self.head = curr_1
-        
+
         curr_1.next, curr_2.next = curr_2.next, curr_1.next
 
         # Reversing singly linked list using Iterative
+
     def reverse_iterative(self):
-        prev = None 
+        prev = None
         cur = self.head
         while cur:
             nxt = cur.next
@@ -153,8 +154,8 @@ class LinkedList:
             self.print_helper(nxt, "NXT")
             print("\n")
 
-            prev = cur 
-            cur = nxt 
+            prev = cur
+            cur = nxt
         self.head = prev
 
     def reverse_recursive(self):
@@ -165,19 +166,19 @@ class LinkedList:
 
             nxt = cur.next
             cur.next = prev
-            prev = cur 
-            cur = nxt 
+            prev = cur
+            cur = nxt
             return _reverse_recursive(cur, prev)
 
         self.head = _reverse_recursive(cur=self.head, prev=None)
 
     # Merged sorted linked lists
     def merge_sorted(self, llist):
-    
-        p = self.head 
+
+        p = self.head
         q = llist.head
         s = None
-    
+
         if not p:
             return q
         if not q:
@@ -185,29 +186,29 @@ class LinkedList:
 
         if p and q:
             if p.data <= q.data:
-                s = p 
+                s = p
                 p = s.next
             else:
                 s = q
                 q = s.next
-            new_head = s 
+            new_head = s
         while p and q:
             if p.data <= q.data:
-                s.next = p 
-                s = p 
+                s.next = p
+                s = p
                 p = s.next
             else:
                 s.next = q
                 s = q
                 q = s.next
         if not p:
-            s.next = q 
+            s.next = q
         if not q:
             s.next = p
-            
-        self.head = new_head     
+
+        self.head = new_head
         return self.head
-    
+
     # Remove duplicate value
     def remove_duplicates(self):
         cur = self.head
@@ -223,13 +224,14 @@ class LinkedList:
                 # Have not encountered element before.
                 dup_values[cur.data] = 1
                 prev = cur
-            cur = prev.next 
+            cur = prev.next
 
-    # how to get the Nth-to-Last Node from a given linked list.
+            # how to get the Nth-to-Last Node from a given linked list.
+
     def print_nth_from_last(self, n):
         total_len = self.len_iterative()
 
-        cur = self.head 
+        cur = self.head
         while cur:
             if total_len == n:
                 print(cur.data)
@@ -237,16 +239,16 @@ class LinkedList:
             total_len -= 1
             cur = cur.next
         if cur is None:
-            return 
+            return
 
     def print_nth_from_last(self, n, method):
         if method == 1:
-            #Method 1:
+            # Method 1:
             total_len = self.len_iterative()
-            cur = self.head 
+            cur = self.head
             while cur:
                 if total_len == n:
-                   #print(cur.data)
+                    # print(cur.data)
                     return cur.data
                 total_len -= 1
                 cur = cur.next
@@ -262,10 +264,10 @@ class LinkedList:
                 count = 0
                 while q:
                     count += 1
-                    if(count>=n):
+                    if (count >= n):
                         break
                     q = q.next
-                    
+
                 if not q:
                     print(str(n) + " is greater than the number of nodes in list.")
                     return
@@ -277,8 +279,8 @@ class LinkedList:
             else:
                 return None
 
-     #  how to count occurrences​ of a data element in a linked list.
-       
+    #  how to count occurrences​ of a data element in a linked list.
+
     def count_occurences_iterative(self, data):
         count = 0
         cur = self.head
@@ -286,58 +288,56 @@ class LinkedList:
             if cur.data == data:
                 count += 1
             cur = cur.next
-        return count 
+        return count
 
     def count_occurences_recursive(self, node, data):
         if not node:
-            return 0 
+            return 0
         if node.data == data:
             return 1 + self.count_occurences_recursive(node.next, data)
         else:
             return self.count_occurences_recursive(node.next, data)
 
-
     #  how to rotate a linked list.
     def rotate(self, k):
         if self.head and self.head.next:
-            p = self.head 
-            q = self.head 
-            prev = None   
+            p = self.head
+            q = self.head
+            prev = None
             count = 0
-            
+
             while p and count < k:
                 prev = p
-                p = p.next 
-                q = q.next 
+                p = p.next
+                q = q.next
                 count += 1
             p = prev
             while q:
-                prev = q 
-                q = q.next 
-            q = prev 
+                prev = q
+                q = q.next
+            q = prev
 
-            q.next = self.head 
-            self.head = p.next 
+            q.next = self.head
+            self.head = p.next
             p.next = None
-
 
     #  how to determine whether a singly linked list is a palindrome or not.
     def is_palindrome_1(self):
         # Solution 1:
         s = ""
-        p = self.head 
+        p = self.head
         while p:
             s += p.data
             p = p.next
         return s == s[::-1]
-    
+
     def is_palindrome_2(self):
         # Solution 2:
-        p = self.head 
+        p = self.head
         s = []
         while p:
-             s.append(p.data)
-             p = p.next
+            s.append(p.data)
+            p = p.next
         p = self.head
         while p:
             data = s.pop()
@@ -345,23 +345,23 @@ class LinkedList:
                 return False
             p = p.next
         return True
-    
+
     def is_palindrome_3(self):
         if self.head:
-            p = self.head 
-            q = self.head 
+            p = self.head
+            q = self.head
             prev = []
-            
+
             i = 0
             while q:
                 prev.append(q)
                 q = q.next
                 i += 1
-            q = prev[i-1]
-        
+            q = prev[i - 1]
+
             count = 1
 
-            while count <= i//2 + 1:
+            while count <= i // 2 + 1:
                 if prev[-count].data != p.data:
                     return False
                 p = p.next
@@ -370,7 +370,7 @@ class LinkedList:
         else:
             return True
 
-    def is_palindrome(self,method):
+    def is_palindrome(self, method):
         if method == 1:
             return self.is_palindrome_1()
         elif method == 2:
@@ -381,18 +381,18 @@ class LinkedList:
     # how to move the tail node to the head node in a linked list.
     def move_tail_to_head(self):
         if self.head and self.head.next:
-            last = self.head 
+            last = self.head
             second_to_last = None
             while last.next:
                 second_to_last = last
                 last = last.next
-            last.next = self.head 
-            second_to_last.next = None 
+            last.next = self.head
+            second_to_last.next = None
             self.head = last
 
     # How to sum two linked-list
     def sum_two_lists(self, llist):
-        p = self.head  
+        p = self.head
         q = llist.head
 
         sum_llist = LinkedList()
@@ -404,7 +404,7 @@ class LinkedList:
             else:
                 i = p.data
             if not q:
-                j = 0 
+                j = 0
             else:
                 j = q.data
             s = i + j + carry
@@ -464,10 +464,6 @@ if __name__ == '__main__':
     llist.remove_duplicates()
     llist.print_list()
 
-
-
-
-
     llist_1.append(1)
     llist_1.append(5)
     llist_1.append(7)
@@ -484,8 +480,8 @@ if __name__ == '__main__':
 
     llist_1.merge_sorted(llist_2)
     llist_1.print_list()
-    print(llist.print_nth_from_last(4,1))
-    print(llist.print_nth_from_last(4,2))
+    print(llist.print_nth_from_last(4, 1))
+    print(llist.print_nth_from_last(4, 2))
 
     llist_2 = LinkedList()
     llist_2.append(1)
@@ -510,12 +506,12 @@ if __name__ == '__main__':
     print(llist_3.is_palindrome(1))
     print(llist_3.is_palindrome(2))
     print(llist_3.is_palindrome(3))
-    
+
     llist.print_list()
     llist.move_tail_to_head()
     print("\n")
     llist.print_list()
-    
+
     llist1 = LinkedList()
     llist1.append(5)
     llist1.append(6)
@@ -528,4 +524,3 @@ if __name__ == '__main__':
 
     print(365 + 248)
     llist1.sum_two_lists(llist2)
-                        
